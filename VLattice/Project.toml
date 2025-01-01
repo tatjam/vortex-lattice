@@ -1,0 +1,12 @@
+name = "VLattice"
+uuid = "85ec0db0-a32d-4e87-a729-da19f23eed67"
+authors = ["tatjam <tatjam02@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+GLMakie = "e9467ef8-e4e7-5192-8a1a-b1aee30e663a"
+Meshes = "eacbb407-ea5a-433e-ab97-5258b1ca43fa"
+
+[compat]
+GLMakie = "0.10.18"
+Meshes = "0.52.9"
