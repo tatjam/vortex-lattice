@@ -10,6 +10,8 @@ export influence
 export influencemat
 export solve
 
+include("Demo.jl")
+
 """
 	wingmesh(nspanwise, nchordwise, b, Γ, claw, cofflaw)
 
@@ -160,15 +162,22 @@ is roughly equivalent to `Vinduced / V∞`, and this value must be equal to alph
 We set V∞ to 1, so the equation turns out to be Vinduced = alpha, so the right 
 hand side is simply alpha
 
+If θs is given, it must a vector as big as elements there are in the mesh, and each 
+θ represents an additional angle of attack induced upon the wing by geometric means
+
 """
-function rhs(mesh, α)
-    totalsize = length(mesh)
-    return fill(α, totalsize)
+function rhs(mesh, α, θs=nothing)
+    if isnothing(θs)
+        totalsize = length(mesh)
+        return fill(α, totalsize)
+    else
+        return θs .+ α
+    end
 end
 
-function solve(mesh, α)
+function solve(mesh, α, θs=nothing)
     mat = influencemat(mesh)
-    rh = rhs(mesh, α)
+    rh = rhs(mesh, α, θs)
     return mat \ rh
 end
 
